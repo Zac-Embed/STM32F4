@@ -20,6 +20,7 @@
 #include "main.h"
 #include "usart.h"
 #include "gpio.h"
+#include "fmc.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -88,8 +89,15 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
+  MX_FMC_Init();
   /* USER CODE BEGIN 2 */
-
+	SDRAM_Device_Init();
+	int retval;
+	retval = SDRAM_Test();	
+	if(retval != SUCCESS)
+		printf("SDRAM test error\r\n");
+	else
+		printf("SDRAM test OK!!!!\r\n");
   /* USER CODE END 2 */
 
   /* Infinite loop */
