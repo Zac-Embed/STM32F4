@@ -1,0 +1,26 @@
+--cpu=Cortex-M4.fp.sp
+"synthesis\startup_stm32f429xx.o"
+"synthesis\main.o"
+"synthesis\gpio.o"
+"synthesis\usart.o"
+"synthesis\stm32f4xx_it.o"
+"synthesis\stm32f4xx_hal_msp.o"
+"synthesis\stm32f4xx_hal_uart.o"
+"synthesis\stm32f4xx_hal_rcc.o"
+"synthesis\stm32f4xx_hal_rcc_ex.o"
+"synthesis\stm32f4xx_hal_flash.o"
+"synthesis\stm32f4xx_hal_flash_ex.o"
+"synthesis\stm32f4xx_hal_flash_ramfunc.o"
+"synthesis\stm32f4xx_hal_gpio.o"
+"synthesis\stm32f4xx_hal_dma_ex.o"
+"synthesis\stm32f4xx_hal_dma.o"
+"synthesis\stm32f4xx_hal_pwr.o"
+"synthesis\stm32f4xx_hal_pwr_ex.o"
+"synthesis\stm32f4xx_hal_cortex.o"
+"synthesis\stm32f4xx_hal.o"
+"synthesis\stm32f4xx_hal_exti.o"
+"synthesis\system_stm32f4xx.o"
+--library_type=microlib --strict --scatter "synthesis\synthesis.sct"
+--summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "synthesis.map" -o synthesis\synthesis.axf
