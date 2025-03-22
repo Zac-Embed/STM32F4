@@ -22,11 +22,14 @@ synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ha
 synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
 synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
 synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma2d.h
 synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
 synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
 synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
 synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sdram.h
 synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_fmc.h
+synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_ltdc.h
+synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_ltdc_ex.h
 synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 synthesis\stm32f4xx_hal_sram.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h

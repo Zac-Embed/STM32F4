@@ -18,6 +18,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "dma2d.h"
+#include "ltdc.h"
 #include "usart.h"
 #include "gpio.h"
 #include "fmc.h"
@@ -90,14 +92,20 @@ int main(void)
   MX_GPIO_Init();
   MX_USART1_UART_Init();
   MX_FMC_Init();
+  MX_DMA2D_Init();
+  MX_LTDC_Init();
   /* USER CODE BEGIN 2 */
 	SDRAM_Device_Init();
+	LTDC_Init();
+
+#if 0
 	int retval;
 	retval = SDRAM_Test();	
 	if(retval != SUCCESS)
 		printf("SDRAM test error\r\n");
 	else
 		printf("SDRAM test OK!!!!\r\n");
+#endif
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -105,7 +113,12 @@ int main(void)
   while (1)
   {
 		HAL_GPIO_TogglePin(GPIOB, LED1_Pin|LED0_Pin);
-		printf("test\r\n");
+		printf("test..\r\n");
+		LTDC_Clear(YELLOW);
+		HAL_Delay(500);
+		LTDC_Clear(BLUE);
+		HAL_Delay(500);
+		LTDC_Clear(RED);
 		HAL_Delay(500);
     /* USER CODE END WHILE */
 
@@ -135,7 +148,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 15;
+  RCC_OscInitStruct.PLL.PLLM = 16;
   RCC_OscInitStruct.PLL.PLLN = 216;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
