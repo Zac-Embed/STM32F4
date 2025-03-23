@@ -47,7 +47,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+void delay_ms(uint16_t nms);
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -114,12 +114,13 @@ int main(void)
   {
 		HAL_GPIO_TogglePin(GPIOB, LED1_Pin|LED0_Pin);
 		printf("test..\r\n");
-		LTDC_Clear(YELLOW);
-		HAL_Delay(500);
-		LTDC_Clear(BLUE);
-		HAL_Delay(500);
-		LTDC_Clear(RED);
-		HAL_Delay(500);
+		delay_ms(500);
+//		LTDC_Clear(YELLOW);
+//		HAL_Delay(500);
+//		LTDC_Clear(BLUE);
+//		HAL_Delay(500);
+//		LTDC_Clear(RED);
+//		HAL_Delay(500);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -148,7 +149,7 @@ void SystemClock_Config(void)
   RCC_OscInitStruct.HSEState = RCC_HSE_ON;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
-  RCC_OscInitStruct.PLL.PLLM = 16;
+  RCC_OscInitStruct.PLL.PLLM = 15;
   RCC_OscInitStruct.PLL.PLLN = 216;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
   RCC_OscInitStruct.PLL.PLLQ = 4;
@@ -180,6 +181,109 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+//init delay func
+//presently unsupport os
+static uint32_t fac_us=0;//us delay multiple
+void delay_init(uint8_t SYSCLK)
+{
+	fac_us=SYSCLK;//180
+}
+
+/*
+	note:do not use ucos
+		delay nus us
+	The system clock is 180M, that is, 1 second counts 180 000 000 times, 1us counts 180 times, that is, 1us needs 180 system beats
+*/
+void delay_us(uint32_t nus)
+{		
+	uint32_t ticks;
+	uint32_t told,tnow,tcnt=0;
+	uint32_t reload=SysTick->LOAD;	//SysTick Reload Value Register	    	 
+	//ticks=nus*fac_us;
+	ticks=nus*180; 									//The number of beats that need to be delayed
+	told=SysTick->VAL;        			//SysTick Current Value Register
+	while(1)
+	{
+		tnow=SysTick->VAL;	
+		if(tnow!=told)
+		{	    
+			if(tnow<told)
+				tcnt+=told-tnow;	//SysTick is a decreasing counter
+			else 
+				tcnt+=reload-tnow+told;	    
+			told=tnow;
+			if(tcnt>=ticks)break;			//over the beats that need
+		}  
+	};
+}
+
+void delay_ms(uint16_t nms)
+{
+	uint32_t i;
+	for(i=0;i<nms;i++) delay_us(1000);
+}
+
+//���ݴ���оƬIIC�ӿڳ�ʼ��
+void CT_IIC_Init(void)
+{
+    GPIO_InitTypeDef GPIO_Initure;
+    
+    __HAL_RCC_GPIOH_CLK_ENABLE();       //����GPIOHʱ��
+    __HAL_RCC_GPIOI_CLK_ENABLE();       //����GPIOIʱ��
+
+    GPIO_Initure.Pin = GPIO_PIN_6;              //PH6
+    GPIO_Initure.Mode = GPIO_MODE_OUTPUT_OD;    //�������
+    GPIO_Initure.Pull = GPIO_PULLUP;            //����
+    GPIO_Initure.Speed = GPIO_SPEED_HIGH;       //����
+    HAL_GPIO_Init(GPIOH, &GPIO_Initure);        //��ʼ��
+
+    GPIO_Initure.Pin = GPIO_PIN_3;              //PI3
+    HAL_GPIO_Init(GPIOI, &GPIO_Initure);        //��ʼ��
+	
+    HAL_GPIO_WritePin(GPIOI, GPIO_PIN_3, GPIO_PIN_SET); //CT_IIC_SDA = 1;
+    HAL_GPIO_WritePin(GPIOH, GPIO_PIN_6, GPIO_PIN_SET);//CT_IIC_SCL = 1;
+}
+
+uint8_t FT5206_Init(void)
+{
+    uint8_t temp[5];
+    uint8_t res=1;
+    GPIO_InitTypeDef GPIO_Initure;
+ 
+    __HAL_RCC_GPIOH_CLK_ENABLE();			//����GPIOHʱ��
+    __HAL_RCC_GPIOI_CLK_ENABLE();			//����GPIOIʱ��
+                
+    //PH7
+    GPIO_Initure.Pin=GPIO_PIN_7;            //PH7
+    GPIO_Initure.Mode=GPIO_MODE_INPUT;      //����
+    GPIO_Initure.Pull=GPIO_PULLUP;          //����
+    GPIO_Initure.Speed=GPIO_SPEED_HIGH;     //����
+    HAL_GPIO_Init(GPIOH,&GPIO_Initure);     //��ʼ��
+            
+    //PI8
+    GPIO_Initure.Pin=GPIO_PIN_8;            //PI8
+    GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP;  //�������
+    HAL_GPIO_Init(GPIOI,&GPIO_Initure);     //��ʼ��
+	
+	CT_IIC_Init();
+	HAL_GPIO_WritePin(GPIOI, GPIO_PIN_8, GPIO_PIN_SET);//FT_RST=0;
+	
+	
+	
+}
+
+//touch screen init
+uint8_t TP_Init(void)
+{
+	//lcddev.id == 0X7016
+	
+	//FT5206_Init
+	FT5206_Init();
+
+	
+
+}
+
 
 /* USER CODE END 4 */
 

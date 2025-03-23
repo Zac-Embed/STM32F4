@@ -28,10 +28,21 @@ Project File Date:  03/22/2025
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'synthesis'
 compiling main.c...
+../Core/Src/main.c(273): warning:  #940-D: missing return statement at end of non-void function "FT5206_Init" 
+  }
+../Core/Src/main.c(249): warning:  #177-D: variable "temp"  was declared but never referenced
+      uint8_t temp[5];
+../Core/Src/main.c(250): warning:  #177-D: variable "res"  was declared but never referenced
+      uint8_t res=1;
+../Core/Src/main.c(285): warning:  #940-D: missing return statement at end of non-void function "TP_Init" 
+  }
+../Core/Src/main.c(186): warning:  #550-D: variable "fac_us"  was set but never used
+  static uint32_t fac_us=0;//us delay multiple
+../Core/Src/main.c: 5 warnings, 0 errors
 linking...
-Program Size: Code=8164 RO-data=484 RW-data=28 ZI-data=1230196  
+Program Size: Code=8156 RO-data=484 RW-data=28 ZI-data=1230196  
 FromELF: creating hex file...
-"synthesis\synthesis.axf" - 0 Error(s), 0 Warning(s).
+"synthesis\synthesis.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
