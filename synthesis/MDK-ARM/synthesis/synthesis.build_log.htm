@@ -27,16 +27,16 @@ Project File Date:  03/30/2025
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'D:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'synthesis'
-compiling main.c...
-../Core/Src/main.c(330): warning:  #188-D: enumerated type mixed with another type
-          HAL_GPIO_WritePin(GPIOI, GPIO_PIN_3, ((txd&0x80)>>7));//CT_IIC_SDA = (txd & 0x80) >> 7;
-../Core/Src/main.c(436): warning:  #550-D: variable "ret"  was set but never used
+compiling touch.c...
+../Core/Inc/touch.h(9): warning:  #1-D: last line of file ends without a newline
+  #endif 
+..\Core\Src\touch.c(234): warning:  #550-D: variable "ret"  was set but never used
   	uint8_t ret;
-../Core/Src/main.c(241): warning:  #550-D: variable "fac_us"  was set but never used
-  static uint32_t fac_us=0;//us delay multiple
-../Core/Src/main.c: 3 warnings, 0 errors
+..\Core\Src\touch.c(564): warning:  #1-D: last line of file ends without a newline
+  }
+..\Core\Src\touch.c: 3 warnings, 0 errors
 linking...
-Program Size: Code=10792 RO-data=524 RW-data=52 ZI-data=1230236  
+Program Size: Code=10756 RO-data=524 RW-data=44 ZI-data=1230236  
 FromELF: creating hex file...
 "synthesis\synthesis.axf" - 0 Error(s), 3 Warning(s).
 
@@ -62,7 +62,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.5.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

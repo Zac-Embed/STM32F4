@@ -41,3 +41,4 @@ synthesis\main.o: ../Core/Inc/ltdc.h
 synthesis\main.o: ../Core/Inc/usart.h
 synthesis\main.o: ../Core/Inc/gpio.h
 synthesis\main.o: ../Core/Inc/fmc.h
+synthesis\main.o: ../Core/Inc/touch.h

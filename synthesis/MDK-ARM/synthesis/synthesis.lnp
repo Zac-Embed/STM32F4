@@ -8,6 +8,7 @@
 "synthesis\usart.o"
 "synthesis\stm32f4xx_it.o"
 "synthesis\stm32f4xx_hal_msp.o"
+"synthesis\touch.o"
 "synthesis\stm32f4xx_hal_dma2d.o"
 "synthesis\stm32f4xx_hal_rcc.o"
 "synthesis\stm32f4xx_hal_rcc_ex.o"
