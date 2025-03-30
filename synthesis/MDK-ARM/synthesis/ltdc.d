@@ -36,4 +36,5 @@ synthesis\ltdc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 synthesis\ltdc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 synthesis\ltdc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 synthesis\ltdc.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+synthesis\ltdc.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 synthesis\ltdc.o: ../Core/Inc/dma2d.h

@@ -6,7 +6,8 @@
 	软件：keil
 
 # 版本内容更新
-	v0.4.0 添加利用systick的延时函数
+	v0.5.0 添加触摸屏：包含延时，模拟IIC
+	v0.4.0 添加使用systick的延时函数
 	v0.3.0 添加LTDC,DMA2D
 	v0.2.0 添加SDRAM
 	v0.1.0 初始化工程添加LED，UART

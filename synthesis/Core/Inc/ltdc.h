@@ -49,6 +49,10 @@ extern LTDC_HandleTypeDef hltdc;
 #define BROWN 			    0XBC40 //brown
 #define BRRED 			    0XFC07 //Brownish-red
 #define GRAY  			    0X8430 //grey
+
+#define DARKBLUE      	 0X01CF
+#define LIGHTBLUE      	 0X7D7C	
+#define GRAYBLUE       	 0X5458 
 /* USER CODE END Private defines */
 
 void MX_LTDC_Init(void);

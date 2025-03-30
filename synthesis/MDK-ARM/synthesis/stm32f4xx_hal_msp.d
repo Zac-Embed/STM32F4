@@ -35,3 +35,4 @@ synthesis\stm32f4xx_hal_msp.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal
 synthesis\stm32f4xx_hal_msp.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 synthesis\stm32f4xx_hal_msp.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 synthesis\stm32f4xx_hal_msp.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+synthesis\stm32f4xx_hal_msp.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

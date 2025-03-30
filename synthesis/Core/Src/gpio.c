@@ -58,12 +58,32 @@ void MX_GPIO_Init(void)
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, LED1_Pin|LED0_Pin|LCD_BK_Pin, GPIO_PIN_RESET);
 
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(Simulated_IIC_SCL_GPIO_Port, Simulated_IIC_SCL_Pin, GPIO_PIN_SET);
+
+  /*Configure GPIO pin Output Level */
+  HAL_GPIO_WritePin(Simulated_IIC_SDA_GPIO_Port, Simulated_IIC_SDA_Pin, GPIO_PIN_SET);
+
   /*Configure GPIO pins : LED1_Pin LED0_Pin LCD_BK_Pin */
   GPIO_InitStruct.Pin = LED1_Pin|LED0_Pin|LCD_BK_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : Simulated_IIC_SCL_Pin */
+  GPIO_InitStruct.Pin = Simulated_IIC_SCL_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(Simulated_IIC_SCL_GPIO_Port, &GPIO_InitStruct);
+
+  /*Configure GPIO pin : Simulated_IIC_SDA_Pin */
+  GPIO_InitStruct.Pin = Simulated_IIC_SDA_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_OD;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
+  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+  HAL_GPIO_Init(Simulated_IIC_SDA_GPIO_Port, &GPIO_InitStruct);
 
 }
 
