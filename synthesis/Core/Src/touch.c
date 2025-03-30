@@ -209,25 +209,8 @@ uint8_t CT_IIC_Read_Byte(unsigned char ack)
 	return receive;
 }
 //============================================ simulated IIC end ============================================
-		  
-void FT5206_RD_Reg(uint16_t reg,uint8_t *buf,uint8_t len)
-{
-	uint8_t i; 
- 	CT_IIC_Start();	
- 	CT_IIC_Send_Byte(FT_CMD_WR);   	//发送写命令 	 
-	CT_IIC_Wait_Ack(); 	 										  		   
- 	CT_IIC_Send_Byte(reg&0XFF);   	//发送低8位地址
-	CT_IIC_Wait_Ack();  
- 	CT_IIC_Start();  	 	   
-	CT_IIC_Send_Byte(FT_CMD_RD);   	//发送读命令		   
-	CT_IIC_Wait_Ack();	   
-	for(i=0;i<len;i++)
-	{	   
-    	buf[i]=CT_IIC_Read_Byte(i==(len-1)?0:1); //发数据	  
-	} 
-    CT_IIC_Stop();//产生一个停止条件     
-} 
 
+//============================================ GT9147 IIC RW============================================
 void GT9147_RD_Reg(uint16_t reg,uint8_t *buf,uint8_t len)
 {
 	uint8_t i; 
@@ -244,9 +227,9 @@ void GT9147_RD_Reg(uint16_t reg,uint8_t *buf,uint8_t len)
 	ret=CT_IIC_Wait_Ack();	  
 	for(i=0;i<len;i++)
 	{	   
-    	buf[i]=CT_IIC_Read_Byte(i==(len-1)?0:1); //发数据	  	
+    buf[i]=CT_IIC_Read_Byte(i==(len-1)?0:1); //发数据	  	
 	} 
-    CT_IIC_Stop();//产生一个停止条件    
+  CT_IIC_Stop();//产生一个停止条件    
 } 
 
 uint8_t GT9147_WR_Reg(uint16_t reg,uint8_t *buf,uint8_t len)
@@ -262,34 +245,36 @@ uint8_t GT9147_WR_Reg(uint16_t reg,uint8_t *buf,uint8_t len)
 	CT_IIC_Wait_Ack();  
 	for(i=0;i<len;i++)
 	{	   
-    	CT_IIC_Send_Byte(buf[i]);  	//发数据
+    CT_IIC_Send_Byte(buf[i]);  	//发数据
 		ret=CT_IIC_Wait_Ack();
 		if(ret)break;  
 	}
     CT_IIC_Stop();					//产生一个停止条件	    
 	return ret; 
 }
+//============================================ GT9147 IIC RW============================================
+
 
 uint8_t FT5206_Init(void)
 {
-    uint8_t temp[5];
-    uint8_t res=1;
-    GPIO_InitTypeDef GPIO_Initure;
- 
-    __HAL_RCC_GPIOH_CLK_ENABLE();			
-    __HAL_RCC_GPIOI_CLK_ENABLE();			
-                
-    //PH7
-    GPIO_Initure.Pin=GPIO_PIN_7;            //PH7
-    GPIO_Initure.Mode=GPIO_MODE_INPUT;      
-    GPIO_Initure.Pull=GPIO_PULLUP;          
-    GPIO_Initure.Speed=GPIO_SPEED_HIGH;     
-    HAL_GPIO_Init(GPIOH,&GPIO_Initure);     
-            
-    //PI8
-    GPIO_Initure.Pin=GPIO_PIN_8;            //PI8
-    GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP;  
-    HAL_GPIO_Init(GPIOI,&GPIO_Initure);     
+	uint8_t temp[5];
+	uint8_t res=1;
+	GPIO_InitTypeDef GPIO_Initure;
+
+	__HAL_RCC_GPIOH_CLK_ENABLE();			
+	__HAL_RCC_GPIOI_CLK_ENABLE();			
+							
+	//PH7
+	GPIO_Initure.Pin=GPIO_PIN_7;            //PH7
+	GPIO_Initure.Mode=GPIO_MODE_INPUT;      
+	GPIO_Initure.Pull=GPIO_PULLUP;          
+	GPIO_Initure.Speed=GPIO_SPEED_HIGH;     
+	HAL_GPIO_Init(GPIOH,&GPIO_Initure);     
+					
+	//PI8
+	GPIO_Initure.Pin=GPIO_PIN_8;            //PI8
+	GPIO_Initure.Mode=GPIO_MODE_OUTPUT_PP;  
+	HAL_GPIO_Init(GPIOI,&GPIO_Initure);     
 	
 	CT_IIC_Init();
 	HAL_GPIO_WritePin(GPIOI, GPIO_PIN_8, GPIO_PIN_RESET);//FT_RST=0;
@@ -298,7 +283,7 @@ uint8_t FT5206_Init(void)
 	delay_ms(50);
 	temp[0]=0;
 	
-	FT5206_RD_Reg(FT_ID_G_LIB_VERSION,&temp[0],2);
+	//FT5206_RD_Reg(FT_ID_G_LIB_VERSION,&temp[0],2);
 	
 	GT9147_RD_Reg(GT_PID_REG,temp,4);//read id
 	temp[4]=0;
@@ -329,114 +314,81 @@ uint8_t FT5206_Scan(uint8_t mode)
 	t++;
 	if((t%10)==0||t<10)//When idle, enter ten times and scan once
 	{
-        if(strcmp((char *)CIP,"911")==0) //touch IC 911
-        {
-            GT9147_RD_Reg(GT_GSTID_REG,&mode,1); //read touch point state
-            if((mode&0X80)&&((mode&0XF)<=g_gt_tnum))
-            {
-                i=0;
-                GT9147_WR_Reg(GT_GSTID_REG,&i,1); //clear flag
-            }
-        }
-        else
-        {
-            FT5206_RD_Reg(FT_REG_NUM_FINGER,&mode,1);//read touch point state 
-        }
+		if(strcmp((char *)CIP,"911")==0) //touch IC 911
+		{
+			GT9147_RD_Reg(GT_GSTID_REG,&mode,1); //read touch point state
+			if((mode&0X80)&&((mode&0XF)<=g_gt_tnum))
+			{
+				i=0;
+				GT9147_WR_Reg(GT_GSTID_REG,&i,1); //clear flag
+			}
+		}
         
 		if((mode&0XF)&&((mode&0XF)<=g_gt_tnum))
 		{
 			temp=0XFF<<(mode&0XF);//The number of points is converted into the number of digits of one
-            tempsta=sta;    //save sta's value
-            sta=(~temp)|TP_PRES_DOWN|TP_CATH_PRES;
-            x[g_gt_tnum-1]=x[0];//保存触点0的数据,保存在最后一个上
-            y[g_gt_tnum-1]=y[0];
-            
-            delay_ms(4); //Necessary time delays
+			tempsta=sta;    //save sta's value
+			sta=(~temp)|TP_PRES_DOWN|TP_CATH_PRES;
+			x[g_gt_tnum-1]=x[0];//保存触点0的数据,保存在最后一个上
+			y[g_gt_tnum-1]=y[0];
+			
+			delay_ms(4); //Necessary time delays
             
 			for(i=0;i<g_gt_tnum;i++)
 			{
 				if(sta&(1<<i))		//touchtype valid
 				{
-                    if(strcmp((char *)CIP,"911")==0) //触摸IC 911
-                    {
-                        GT9147_RD_Reg(GT911_TPX_TBL[i],buf,4);   //read x y value
-                        if(touchtype&0X01) //横屏
-                        {
-                            x[i]=(((uint16_t)buf[1]<<8)+buf[0]);
-                            y[i]=(((uint16_t)buf[3]<<8)+buf[2]);
-                        }
-                        else
-                        {
-                            y[i]=((uint16_t)buf[1]<<8)+buf[0];
-                            x[i]=width-(((uint16_t)buf[3]<<8)+buf[2]);
-                        }
-                    }
-                    else
-                    {
-                        FT5206_RD_Reg(FT5206_TPX_TBL[i],buf,4);	//读取XY坐标值 
-                        if(touchtype&0X01)//横屏
-                        {
-                            y[i]=((uint16_t)(buf[0]&0X0F)<<8)+buf[1];
-                            x[i]=((uint16_t)(buf[2]&0X0F)<<8)+buf[3];
-                        }else
-                        {
-                            x[i]=width-(((uint16_t)(buf[0]&0X0F)<<8)+buf[1]);
-                            y[i]=((uint16_t)(buf[2]&0X0F)<<8)+buf[3];
-                        }  
-                    }
-//					printf("x[%d]:%d,y[%d]:%d\r\n",i,tp_dev.x[i],i,tp_dev.y[i]);
+					if(strcmp((char *)CIP,"911")==0) //触摸IC 911
+					{
+							GT9147_RD_Reg(GT911_TPX_TBL[i],buf,4);   //read x y value
+							if(touchtype&0X01) //横屏
+							{
+									x[i]=(((uint16_t)buf[1]<<8)+buf[0]);
+									y[i]=(((uint16_t)buf[3]<<8)+buf[2]);
+							}
+							else
+							{
+									y[i]=((uint16_t)buf[1]<<8)+buf[0];
+									x[i]=width-(((uint16_t)buf[3]<<8)+buf[2]);
+							}
+					}
 				}			
 			} 
 			res=1;
-            if(x[0]>width||y[0]>height)  //非法数据(坐标超出了)
-            {
-                if((mode&0XF)>1)   // 有其他点有数据,则复第二个触点的数据到第一个触点.
-                {
-                    x[0]=x[1];
-                    y[0]=y[1];
-                    t=0;  // 触发一次,则会最少连续监测10次,从而提高命中率 
-                }
-                else        // 非法数据,则忽略此次数据(还原原来的) 
-                {
-                    x[0]=x[g_gt_tnum-1];
-                    y[0]=y[g_gt_tnum-1];
-                    mode=0X80;
-                    sta=tempsta;   // 恢复tp_dev.sta 
-                }
-            }
-            else t=0;      // 触发一次,则会最少连续监测10次,从而提高命中率 
+			if(x[0]>width||y[0]>height)  //非法数据(坐标超出了)
+			{
+				if((mode&0XF)>1)   // 有其他点有数据,则复第二个触点的数据到第一个触点.
+				{
+					x[0]=x[1];
+					y[0]=y[1];
+					t=0;  // 触发一次,则会最少连续监测10次,从而提高命中率 
+				}
+				else        // 非法数据,则忽略此次数据(还原原来的) 
+				{
+					x[0]=x[g_gt_tnum-1];
+					y[0]=y[g_gt_tnum-1];
+					mode=0X80;
+					sta=tempsta;   // 恢复tp_dev.sta 
+				}
+			}
+			else t=0;      // 触发一次,则会最少连续监测10次,从而提高命中率 
 		}
 	}
-    if(strcmp((char *)CIP,"911")==0) //触摸IC 911
-    {
-        if((mode&0X8F)==0X80)//无触摸点按下
-        { 
-            if(sta&TP_PRES_DOWN)	//之前是被按下的
-            {
-                sta&=~TP_PRES_DOWN;	//标记按键松开
-            }else						//之前就没有被按下
-            { 
-                x[0]=0xffff;
-                y[0]=0xffff;
-                sta&=0XE0;	//清除点有效标记	
-            }	 
-        } 	
-    }
-    else
-    {
-        if((mode&0X1F)==0)//无触摸点按下
-        { 
-            if(sta&TP_PRES_DOWN)	//之前是被按下的
-            {
-                sta&=~TP_PRES_DOWN;	//标记按键松开
-            }else						//之前就没有被按下
-            { 
-                x[0]=0xffff;
-                y[0]=0xffff;
-                sta&=0XE0;	//清除点有效标记	
-            }
-        }
-    }
+	if(strcmp((char *)CIP,"911")==0) //触摸IC 911
+	{
+		if((mode&0X8F)==0X80)//无触摸点按下
+		{ 
+			if(sta&TP_PRES_DOWN)	//之前是被按下的
+			{
+				sta&=~TP_PRES_DOWN;	//标记按键松开
+			}else						//之前就没有被按下
+			{ 
+				x[0]=0xffff;
+				y[0]=0xffff;
+				sta&=0XE0;	//清除点有效标记	
+			}	 
+		} 	
+	}
 	if(t>240)t=10;//重新从10开始计数
 	return res;
 }
@@ -444,11 +396,7 @@ uint8_t FT5206_Scan(uint8_t mode)
 //touch screen init
 uint8_t TP_Init(void)
 {
-	//lcddev.id == 0X7016
-	
-	//FT5206_Init
 	FT5206_Init();
-	//tp_dev.scan = FT5206_Scan;
 	touchtype |= 0X80; //1000 0000
 	touchtype |= direction & 0X01;  //direction
 	return 0;
@@ -457,8 +405,8 @@ uint8_t TP_Init(void)
 void gui_draw_hline(uint16_t x0,uint16_t y0,uint16_t len,uint16_t color)
 {
 	if(len==0)return;
-    if((x0+len-1)>=width)x0=width-len-1;	//限制坐标范围
-    if(y0>=height)y0=height-1;			//限制坐标范围
+	if((x0+len-1)>=width)x0=width-len-1;	//限制坐标范围
+	if(y0>=height)y0=height-1;			//限制坐标范围
 	//LCD_Fill(x0,y0,x0+len-1,y0,color);
 	LTDC_Fill(x0,y0,x0+len-1,y0,color);	
 }
