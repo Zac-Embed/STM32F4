@@ -34,6 +34,8 @@ synthesis\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_ltdc.h
 synthesis\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_ltdc_ex.h
 synthesis\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 synthesis\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
+synthesis\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
+synthesis\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 synthesis\fmc.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 synthesis\fmc.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 synthesis\fmc.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h

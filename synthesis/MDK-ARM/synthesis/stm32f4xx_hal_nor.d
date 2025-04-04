@@ -32,4 +32,6 @@ synthesis\stm32f4xx_hal_nor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal
 synthesis\stm32f4xx_hal_nor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_ltdc_ex.h
 synthesis\stm32f4xx_hal_nor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 synthesis\stm32f4xx_hal_nor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
+synthesis\stm32f4xx_hal_nor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
+synthesis\stm32f4xx_hal_nor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 synthesis\stm32f4xx_hal_nor.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h

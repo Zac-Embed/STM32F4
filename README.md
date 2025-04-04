@@ -6,6 +6,7 @@
 	软件：keil
 
 # 版本内容更新
+	v0.6.0 添加FreeRTOS 修改delay_us时基为TIM7
 	v0.5.0 添加触摸屏：包含延时，模拟IIC
 	v0.4.0 添加使用systick的延时函数
 	v0.3.0 添加LTDC,DMA2D

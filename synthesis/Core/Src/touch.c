@@ -53,24 +53,30 @@ uint16_t height=1024;
 	note:do not use ucos
 		delay nus us
 	The system clock is 180M, that is, 1 second counts 180 000 000 times, 1us counts 180 times, that is, 1us needs 180 system beats
+	
+	for rtos:
+	hal systimer uses TIM7 
+	90MHz is divided into 1MHz, and the reload value is 1000-1. up count mode
+	
+	Check the original latency using sysyick from github without freertos
 */
+#include "stdio.h"
 void delay_us(uint32_t nus)
 {		
 	uint32_t ticks;
 	uint32_t told,tnow,tcnt=0;
-	uint32_t reload=SysTick->LOAD;	//SysTick Reload Value Register	    	 
-	//ticks=nus*fac_us;
-	ticks=nus*180; 									//*** The number of beats that need to be delayed ***
-	told=SysTick->VAL;        			//SysTick Current Value Register
+	uint32_t reload=TIM7->ARR;	//TIM7 Reload Value Register	
+	ticks=nus*1;								//TIM7 1tick 1us
+	told=TIM7->CNT;
 	while(1)
 	{
-		tnow=SysTick->VAL;	
+		tnow=TIM7->CNT;
 		if(tnow!=told)
 		{	    
-			if(tnow<told)
-				tcnt+=told-tnow;	//SysTick is a decreasing counter
+			if(tnow>told)
+				tcnt+=tnow-told;	//SysTick is a decreasing counter
 			else 
-				tcnt+=reload-tnow+told;	    
+				tcnt+=reload-told+tnow;	    
 			told=tnow;
 			if(tcnt>=ticks)break;			//over the beats that need
 		}  
@@ -486,6 +492,7 @@ void ctp_test(void)
 		FT5206_Scan(0);
 		for(t=0;t<maxp;t++)
 		{
+
 			if((sta)&(1<<t))
 			{
 				if(x[t]<width&&y[t]<height)
