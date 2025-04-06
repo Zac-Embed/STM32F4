@@ -1,0 +1,13 @@
+synthesis\lv_rle.o: ..\LVGL\src\libs\rle\lv_rle.c
+synthesis\lv_rle.o: ..\LVGL\src\libs\rle\../../stdlib/lv_string.h
+synthesis\lv_rle.o: ..\LVGL\src\libs\rle\../../stdlib/../lv_conf_internal.h
+synthesis\lv_rle.o: ..\LVGL\src\libs\rle\../../stdlib/../lv_conf_kconfig.h
+synthesis\lv_rle.o: ../LVGL/examples/porting/../../lv_conf.h
+synthesis\lv_rle.o: ..\LVGL\src\libs\rle\../../stdlib/../misc/lv_types.h
+synthesis\lv_rle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+synthesis\lv_rle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+synthesis\lv_rle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+synthesis\lv_rle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\inttypes.h
+synthesis\lv_rle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+synthesis\lv_rle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+synthesis\lv_rle.o: ..\LVGL\src\libs\rle\lv_rle.h

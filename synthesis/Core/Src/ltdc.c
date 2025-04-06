@@ -226,6 +226,13 @@ void HAL_LTDC_MspDeInit(LTDC_HandleTypeDef* ltdcHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+void LCD_DrawPoint(uint16_t x , uint16_t y , uint16_t color)
+{
+ 
+	*(__IO uint16_t*)( LCD_FRAME_BUF_ADDR + (x*2 + y*1024*2) ) = color ; 	
+}
+
 //LTDC use DMA2D fill
 //(sx,sy),(ex,ey):Diagonal coordinates,area size:(ex-sx+1)*(ey-sy+1)   
 void LTDC_Fill(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint32_t color)

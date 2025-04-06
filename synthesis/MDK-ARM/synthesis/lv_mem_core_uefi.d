@@ -1,0 +1,13 @@
+synthesis\lv_mem_core_uefi.o: ..\LVGL\src\stdlib\uefi\lv_mem_core_uefi.c
+synthesis\lv_mem_core_uefi.o: ..\LVGL\src\stdlib\uefi\../lv_mem.h
+synthesis\lv_mem_core_uefi.o: ..\LVGL\src\stdlib\uefi\../../lv_conf_internal.h
+synthesis\lv_mem_core_uefi.o: ..\LVGL\src\stdlib\uefi\../../lv_conf_kconfig.h
+synthesis\lv_mem_core_uefi.o: ../LVGL/examples/porting/../../lv_conf.h
+synthesis\lv_mem_core_uefi.o: ..\LVGL\src\stdlib\uefi\../lv_string.h
+synthesis\lv_mem_core_uefi.o: ..\LVGL\src\stdlib\uefi\../../misc/lv_types.h
+synthesis\lv_mem_core_uefi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+synthesis\lv_mem_core_uefi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+synthesis\lv_mem_core_uefi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+synthesis\lv_mem_core_uefi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\inttypes.h
+synthesis\lv_mem_core_uefi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+synthesis\lv_mem_core_uefi.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h

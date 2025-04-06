@@ -1,0 +1,15 @@
+synthesis\lv_draw_vg_lite_triangle.o: ..\LVGL\src\draw\vg_lite\lv_draw_vg_lite_triangle.c
+synthesis\lv_draw_vg_lite_triangle.o: ..\LVGL\src\draw\vg_lite\../../misc/lv_area_private.h
+synthesis\lv_draw_vg_lite_triangle.o: ..\LVGL\src\draw\vg_lite\../../misc/lv_area.h
+synthesis\lv_draw_vg_lite_triangle.o: ..\LVGL\src\draw\vg_lite\../../misc/../lv_conf_internal.h
+synthesis\lv_draw_vg_lite_triangle.o: ..\LVGL\src\draw\vg_lite\../../misc/../lv_conf_kconfig.h
+synthesis\lv_draw_vg_lite_triangle.o: ../LVGL/examples/porting/../../lv_conf.h
+synthesis\lv_draw_vg_lite_triangle.o: ..\LVGL\src\draw\vg_lite\../../misc/lv_types.h
+synthesis\lv_draw_vg_lite_triangle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+synthesis\lv_draw_vg_lite_triangle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+synthesis\lv_draw_vg_lite_triangle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+synthesis\lv_draw_vg_lite_triangle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\inttypes.h
+synthesis\lv_draw_vg_lite_triangle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+synthesis\lv_draw_vg_lite_triangle.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+synthesis\lv_draw_vg_lite_triangle.o: ..\LVGL\src\draw\vg_lite\../../misc/lv_math.h
+synthesis\lv_draw_vg_lite_triangle.o: ..\LVGL\src\draw\vg_lite\lv_draw_vg_lite.h

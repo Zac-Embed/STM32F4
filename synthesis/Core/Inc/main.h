@@ -60,7 +60,7 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define PIXELS_W 1024
 #define PIXELS_H 600
-#define PIXELS_DIR 0
+#define PIXELS_DIR 1
 #define LTDC_BUFF_ADDR 0xC0000000
 #define LED1_Pin GPIO_PIN_0
 #define LED1_GPIO_Port GPIOB

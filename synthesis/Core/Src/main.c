@@ -18,7 +18,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "cmsis_os.h"
 #include "dma2d.h"
 #include "ltdc.h"
 #include "usart.h"
@@ -28,6 +27,9 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "touch.h"
+#include "lvgl.h"
+#include "lv_port_disp.h"
+#include "lv_port_indev.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,14 +57,13 @@ void gui_fill_circle(uint16_t x0,uint16_t y0,uint16_t r,uint16_t color);
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
-void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-extern void delay_us(uint32_t nus);
+
 /* USER CODE END 0 */
 
 /**
@@ -99,24 +100,49 @@ int main(void)
   MX_DMA2D_Init();
   MX_LTDC_Init();
   /* USER CODE BEGIN 2 */
+	SDRAM_Device_Init();
+	LTDC_Init();
+	TP_Init();
+	//ctp_test();
+	
+	lv_init();
+	lv_port_disp_init();
+	lv_port_indev_init();
+	
+	
+//	lv_obj_t *parent = lv_scr_act();
+//	
+//	lv_obj_t *label = lv_label_create(parent);
+//	lv_label_set_text(label, "Hello, LVGL!");
+//	lv_obj_align(label, LV_ALIGN_CENTER, 0, 0); 
+//	
+//	static lv_style_t label_style;
+//	lv_style_init(&label_style);
+//	lv_style_set_text_color(&label_style, lv_color_hex(0xFF0000)); 
+//	lv_obj_add_style(label, &label_style, LV_PART_MAIN); 
+	
 
+    lv_obj_t *myBtn = lv_btn_create(lv_scr_act());                             
+    lv_obj_set_pos(myBtn, 10, 10);                                               
+    lv_obj_set_size(myBtn, 120, 50);                                             
+   
+    lv_obj_t *label_btn = lv_label_create(myBtn);                                
+    lv_obj_align(label_btn, LV_ALIGN_CENTER, 0, 0);                              
+    lv_label_set_text(label_btn, "Test");                                        
+ 
+    lv_obj_t *myLabel = lv_label_create(lv_scr_act());                       
+    lv_label_set_text(myLabel, "Hello world!");                                 
+    lv_obj_align(myLabel, LV_ALIGN_CENTER, 0, 0);                                
+    lv_obj_align_to(myBtn, myLabel, LV_ALIGN_OUT_TOP_MID, 0, -20);               
+	
   /* USER CODE END 2 */
-
-  /* Init scheduler */
-  osKernelInitialize();
-
-  /* Call init function for freertos objects (in cmsis_os2.c) */
-  MX_FREERTOS_Init();
-
-  /* Start scheduler */
-  osKernelStart();
-
-  /* We should never get here as control is now taken by the scheduler */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+		HAL_Delay(5);
+		lv_timer_handler();
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -196,6 +222,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   if (htim->Instance == TIM7)
   {
     HAL_IncTick();
+		
+		lv_tick_inc(1);
   }
   /* USER CODE BEGIN Callback 1 */
 

@@ -59,6 +59,7 @@ void MX_LTDC_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 void LTDC_Init(void);
+void LCD_DrawPoint(uint16_t x , uint16_t y , uint16_t color);
 void LTDC_Fill(uint16_t sx,uint16_t sy,uint16_t ex,uint16_t ey,uint32_t color);
 void LTDC_Clear(uint32_t color);
 /* USER CODE END Prototypes */

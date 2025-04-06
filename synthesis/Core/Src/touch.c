@@ -39,7 +39,7 @@ uint8_t CIP[5];
 //bit 0: 0 Portrait screen; 1 Landscape screen
 //bit 0: 0 Resistive screens; 1 Capacitive screen
 uint8_t touchtype;
-uint8_t direction=0; // 0 Portrait screen; 1 Landscape screen
+uint8_t direction=1; // 0 Portrait screen; 1 Landscape screen
 uint16_t sta;//touch state; bit 15:1 press,0 unpress; bit 14 :0 no button press; 1 button press
 //bit13-bit10 :reserved; bit9-bit0:number of pressed point ,0 unpress 1pressed
 uint16_t x[10];
@@ -337,7 +337,6 @@ uint8_t FT5206_Scan(uint8_t mode)
 			sta=(~temp)|TP_PRES_DOWN|TP_CATH_PRES;
 			x[g_gt_tnum-1]=x[0];//保存触点0的数据,保存在最后一个上
 			y[g_gt_tnum-1]=y[0];
-			
 			delay_ms(4); //Necessary time delays
             
 			for(i=0;i<g_gt_tnum;i++)
@@ -517,3 +516,22 @@ void ctp_test(void)
 			HAL_GPIO_TogglePin(GPIOB, LED1_Pin|LED0_Pin);
 	}	
 }
+
+uint8_t touch_port_for_lv_is_pressed(void)
+{
+	FT5206_Scan(0);
+	if(sta & TP_PRES_DOWN)
+		return 1;
+	return 0;
+}
+
+uint16_t touch_getX(void)
+{
+	return x[0];
+}
+
+uint16_t touch_getY(void)
+{
+	return y[0];
+}
+

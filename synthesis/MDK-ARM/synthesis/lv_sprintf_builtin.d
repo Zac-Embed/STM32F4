@@ -1,0 +1,13 @@
+synthesis\lv_sprintf_builtin.o: ..\LVGL\src\stdlib\builtin\lv_sprintf_builtin.c
+synthesis\lv_sprintf_builtin.o: ..\LVGL\src\stdlib\builtin\../../lv_conf_internal.h
+synthesis\lv_sprintf_builtin.o: ..\LVGL\src\stdlib\builtin\../../lv_conf_kconfig.h
+synthesis\lv_sprintf_builtin.o: ../LVGL/examples/porting/../../lv_conf.h
+synthesis\lv_sprintf_builtin.o: ..\LVGL\src\stdlib\builtin\../lv_sprintf.h
+synthesis\lv_sprintf_builtin.o: ..\LVGL\src\stdlib\builtin\../../misc/lv_types.h
+synthesis\lv_sprintf_builtin.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+synthesis\lv_sprintf_builtin.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+synthesis\lv_sprintf_builtin.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
+synthesis\lv_sprintf_builtin.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\inttypes.h
+synthesis\lv_sprintf_builtin.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
+synthesis\lv_sprintf_builtin.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+synthesis\lv_sprintf_builtin.o: ..\LVGL\src\stdlib\builtin\../lv_string.h
